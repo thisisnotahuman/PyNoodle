@@ -1,0 +1,18 @@
+# Python cache
+__pycache__/
+*.pyc
+
+# VS Code project files
+.vscode/
+
+# Data files
+*.csv
+*.pkl
+*.npy
+
+# Raw and processed data folders
+data/raw/
+data/processed/
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
