@@ -4,6 +4,7 @@ import numpy as np
 def preprocess_data(input_path="data/raw/sp500_bonds_50.csv", output_path="data/raw/processed_50.csv"):
     # 1. Load raw CSV file
     df = pd.read_csv(input_path)
+    df = df.drop_duplicates(subset=["Date", "Ticker"])
     
     # 2. Reshape to pivot table: rows = Date, columns = Ticker, values = Close prices
     pivot_df = df.pivot(index="Date", columns="Ticker", values="Close")

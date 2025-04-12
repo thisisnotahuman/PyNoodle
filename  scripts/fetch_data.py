@@ -4,20 +4,18 @@ from datetime import datetime
 
 # s&p e.g.
 stock_tickers = [
-    "AAPL", "MSFT", "GOOGL", "AMZN", "JPM",
-    "META", "NVDA", "TSLA", "UNH", "V",
-    "HD", "PG", "DIS", "MA", "PEP",
-    "BAC", "KO", "VZ", "ADBE", "CMCSA",
-    "INTC", "NFLX", "T", "PFE", "MRK",
-    "WMT", "CRM", "TMO", "ABBV", "AVGO",
-    "QCOM", "COST", "MCD", "NKE", "TXN",
-    "ORCL", "XOM", "CVX", "LIN", "MDT",
-    "IBM", "GE", "AMGN", "ISRG", "BLK"
+    "AAPL", "MSFT", "GOOGL", "AMZN", "JPM", "META", "TSLA", "NVDA", "UNH", "V",
+    "HD", "JNJ", "PG", "PFE", "MA", "MRK", "XOM", "PEP", "KO", "ABBV",
+    "AVGO", "LLY", "COST", "WMT", "CVX", "BAC", "TMO", "QCOM", "ACN", "INTC",
+    "ADBE", "CRM", "AMD", "ABT", "NFLX", "NEE", "MCD", "DHR", "TXN", "LIN",
+    "ORCL", "CMCSA", "UPS", "AMAT", "PM", "INTU", "HON", "IBM", "GE", "LOW",
+    "ISRG", "RTX", "SBUX", "BLK", "CAT", "AXP", "BKNG", "DE", "CI", "SPGI",
+    "GS", "MS", "CB", "ZTS", "PLD", "LRCX", "NOW", "MO", "ADI", "MDT",
+    "T", "GILD", "VRTX", "ADI", "ADP", "USB", "TGT", "CL", "REGN", "SO",
+    "ETN", "BDX", "NKE", "CSCO", "APD", "EL", "WM", "MAR", "ILMN", "ROST"
 ]
 
-bond_tickers = [
-    "TLT", "IEF", "SHY", "BND", "AGG"
-]
+bond_tickers = ["TLT", "IEF", "SHY", "BND", "AGG"]
 
 tickers = stock_tickers + bond_tickers
 
