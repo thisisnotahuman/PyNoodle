@@ -17,11 +17,14 @@ def preprocess_data(input_path="data/raw/sp500_bonds_50.csv", output_path="data/
     # 4. Calculate log returns
     log_return = np.log(pivot_df / pivot_df.shift(1)).dropna()
 
-    # 5. Standardize (z-score normalization)
-    standardized = (log_return - log_return.mean()) / log_return.std()
+    # # 5. Standardize (z-score normalization)
+    # standardized = (log_return - log_return.mean()) / log_return.std()
 
-    # 6. Save to CSV
-    standardized.to_csv(output_path)
+    # # 6. Save to CSV
+    # standardized.to_csv(output_path)
+
+    log_return.to_csv(output_path)
+
     print(f"Preprocessing complete. Saved to {output_path}")
 
 if __name__ == "__main__":
