@@ -8,8 +8,9 @@ def monte_carlo_portfolio_optimization(csv_path, n_simulations=100_000, risk_fre
     # Load standardized log return data
     df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
 
-    mean_returns = df.mean() * 252  # Annualized Return
-    cov_matrix = df.cov() * 252     # Annualized Covariance
+    mean_returns = pd.read_csv("data/excess_mean.csv", index_col=0).squeeze()
+    cov_matrix = pd.read_csv("data/excess_cov.csv", index_col=0)
+
     num_assets = len(mean_returns)
 
     # Prepare simulation containers
