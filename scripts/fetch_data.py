@@ -12,10 +12,28 @@ stock_tickers = [
     "ISRG", "RTX", "SBUX", "BLK", "CAT", "AXP", "BKNG", "DE", "CI", "SPGI",
     "GS", "MS", "CB", "ZTS", "PLD", "LRCX", "NOW", "MO", "ADI", "MDT",
     "T", "GILD", "VRTX", "ADI", "ADP", "USB", "TGT", "CL", "REGN", "SO",
-    "ETN", "BDX", "NKE", "CSCO", "APD", "EL", "WM", "MAR", "ILMN", "ROST"
+    "ETN", "BDX", "NKE", "CSCO", "APD", "EL", "WM", "MAR", "ILMN", "ROST", 
+    "A", "AAL", "AEE", "AEP", "AES", "AFL", "AJG", "AKAM", "ALB", "ALL",
+    "AME", "AMGN", "ANET", "AON", "APA", "ARE", "ATO", "AZO", "BALL", "BAX",
+    "BBY", "BEN", "BIO", "BKR", "BMY", "BR", "BRO", "C", "CAG", "CAH",
+    "CDW", "CE", "CF", "CHRW", "CINF", "CLX", "CNP", "COO", "CPB", "CPT",
+    "CTLT", "CTRA", "CVS", "D", "DAL", "DD", "DG", "DLR", "DOV", "DRI",
+    "DVN", "DXC", "ECL", "ED", "EFX", "EG", "EIX", "EMN", "EMR", "ENPH",
+    "EOG", "EQR", "EQX", "ES", "ESS", "ETR", "EVRG", "EXC", "EXPD", "EXR",
+    "F", "FAST", "FCX", "FDS", "FE", "FFIV", "FISV", "FLT", "FMC", "FRT",
+    "FSLR", "FTNT", "GEN", "GL", "GLW", "HIG", "HLT", "HPE", "HPQ", "HRL",
+    "HSIC", "HWM", "IEX", "IR", "IT", "JBHT", "JCI", "JKHY", "KEYS", "KHC",
+    "KIM", "KLAC", "KMB", "KMI", "KMX", "KR", "L", "LDOS", "LEN", "LKQ",
+    "LLY", "LLY", "LNT", "LUMN", "LW", "LYB", "MAA", "MCHP", "MKC", "MKTX",
+    "MNST", "MSCI", "MTB", "MTCH", "NDAQ", "NEE", "NEM", "NFLX", "NI", "NOC",
+    "NRG", "NTRS", "NUE", "NVDA", "NVR", "O", "ODFL", "OKE", "OTIS", "PFG",
+    "PGR", "PH", "PNW", "PNC", "PNR", "PPG", "PPL", "PRU", "PSA", "PTC",
+    "PWR", "QRVO", "RCL", "RE", "REG", "RF", "RHI", "RMD", "ROK", "ROL",
+    "ROP", "RSG", "SBAC", "SEDG", "SEE", "SJM", "SLB", "SNA", "SNPS", "STT",
+    "STX", "STZ", "SWK", "SWKS", "SYF", "SYK", "TAP", "TDG", "TEL", "TER"
 ]
 
-bond_tickers = ["TLT", "IEF", "SHY", "BND", "AGG"]
+bond_tickers = ["TLT", "IEF", "SHY", "BND", "AGG", "TIP", "IEI", "ITOT", "VGSH", "VGIT", "VGLT", "HYG", "IGSB", "LQD", "EDV"]
 
 tickers = stock_tickers + bond_tickers
 
