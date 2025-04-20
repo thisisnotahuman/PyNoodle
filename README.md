@@ -1,5 +1,5 @@
 # PyNoodle
-pluplu
+Final project for adv python
 
 [reference](https://chatgpt.com/share/67f70f04-3438-800b-bc34-e6dfeff51f9a)
 
