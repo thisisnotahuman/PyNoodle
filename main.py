@@ -1,6 +1,6 @@
 import os
 import pandas as pd
-from scripts.monte_carlo import monte_carlo_portfolio_optimization
+from scripts.monte_carlo import monte_carlo_portfolio_optimization, monte_carlo_portfolio_optimization_opt
 from scripts.optimize_mvo import optimize_portfolio_from_weights
 
 def main():
@@ -18,7 +18,7 @@ def main():
 
     # Outer loop: Try different random selections of N assets
     for seed in range(NUM_TRIALS):
-        result = monte_carlo_portfolio_optimization(
+        result = monte_carlo_portfolio_optimization_opt(
             csv_path=processed_data_path,
             n_simulations=5000,
             n_assets_to_select=N_ASSETS,
@@ -33,7 +33,7 @@ def main():
     print("\n✅ Found best asset combination. Re-running high-precision MC and MVO...")
 
     # Stage 2: Re-run MC on the best ticker set with more simulations
-    refined_result = monte_carlo_portfolio_optimization(
+    refined_result = monte_carlo_portfolio_optimization_opt(
         csv_path=processed_data_path,
         n_simulations=100_000,
         risk_free_rate=0.02,
