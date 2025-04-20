@@ -28,8 +28,8 @@ def weight_constraints(n):
 
 # === Step 4: Optimization wrapper ===
 def optimize_portfolio_from_weights(csv_path, init_weights, risk_free_rate=0.02):
-    mean_returns = pd.read_csv("data/excess_mean.csv", index_col=0).squeeze()
-    cov_matrix = pd.read_csv("data/excess_cov.csv", index_col=0)
+    mean_returns = pd.read_csv("excess_mean.csv", index_col=0).squeeze()
+    cov_matrix = pd.read_csv("excess_cov.csv", index_col=0)
     num_assets = len(mean_returns)
 
     bounds, constraint = weight_constraints(num_assets)
