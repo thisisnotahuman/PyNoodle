@@ -1,10 +1,10 @@
 import os
 import pandas as pd
-from script.monte_carlo import monte_carlo_portfolio_optimization
-from script.optimize_mvo import optimize_portfolio_from_weights
+from scripts.monte_carlo import monte_carlo_portfolio_optimization
+from scripts.optimize_mvo import optimize_portfolio_from_weights
 
 def main():
-    processed_data_path = "processed_50.csv"
+    processed_data_path = "./data/raw/processed_50.csv"
     if not os.path.exists(processed_data_path):
         raise FileNotFoundError(f"Data file not found: {processed_data_path}. Please run preprocess.py first.")
 
@@ -21,6 +21,7 @@ def main():
         result = monte_carlo_portfolio_optimization(
             csv_path=processed_data_path,
             n_simulations=100_000,
+            n_assets_to_select=50,
             risk_free_rate=0.02,
             random_seed=seed
         )

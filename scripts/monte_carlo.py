@@ -2,24 +2,36 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
-def monte_carlo_portfolio_optimization(csv_path, n_simulations=100_000, risk_free_rate=0.02, random_seed=42):
+import numpy as np
+import pandas as pd
+
+def monte_carlo_portfolio_optimization(
+    csv_path,
+    n_simulations=100_000,
+    n_assets_to_select=50,
+    risk_free_rate=0.02,
+    random_seed=42
+):
     np.random.seed(random_seed)
 
-    # Load standardized log return data
     df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
 
-    mean_returns = pd.read_csv("excess_mean.csv", index_col=0).squeeze()
-    cov_matrix = pd.read_csv("excess_cov.csv", index_col=0)
+    full_tickers = df.columns.tolist()
+    if len(full_tickers) < n_assets_to_select:
+        raise ValueError("Asset pool smaller than number to select")
 
-    num_assets = len(mean_returns)
+    selected_tickers = np.random.choice(full_tickers, size=n_assets_to_select, replace=False)
+    df_selected = df[selected_tickers]
 
-    # Prepare simulation containers
+    mean_returns = df_selected.mean() * 252
+    cov_matrix = df_selected.cov() * 252
+    num_assets = len(selected_tickers)
+
     all_weights = []
     ret_arr = np.zeros(n_simulations)
     vol_arr = np.zeros(n_simulations)
     sharpe_arr = np.zeros(n_simulations)
 
-    # Run simulation
     for i in range(n_simulations):
         weights = np.random.random(num_assets)
         weights /= np.sum(weights)
@@ -33,12 +45,11 @@ def monte_carlo_portfolio_optimization(csv_path, n_simulations=100_000, risk_fre
         vol_arr[i] = vol
         sharpe_arr[i] = sharpe
 
-    # Find optimal
     max_idx = sharpe_arr.argmax()
     optimal_weights = all_weights[max_idx]
 
     return {
-        "tickers": df.columns.tolist(),
+        "tickers": selected_tickers,
         "max_sharpe": sharpe_arr[max_idx],
         "expected_return": ret_arr[max_idx],
         "expected_volatility": vol_arr[max_idx],
@@ -47,6 +58,7 @@ def monte_carlo_portfolio_optimization(csv_path, n_simulations=100_000, risk_fre
         "volatilities": vol_arr,
         "sharpes": sharpe_arr
     }
+
 
 def plot_simulation(returns, volatilities, sharpes, max_idx):
     plt.figure(figsize=(10, 6))
