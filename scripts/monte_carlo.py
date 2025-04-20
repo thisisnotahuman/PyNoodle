@@ -10,19 +10,22 @@ def monte_carlo_portfolio_optimization(
     n_simulations=100_000,
     n_assets_to_select=50,
     risk_free_rate=0.02,
-    random_seed=42
+    random_seed=42,
+    fixed_tickers=None
 ):
     np.random.seed(random_seed)
 
     df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
 
-    full_tickers = df.columns.tolist()
-    if len(full_tickers) < n_assets_to_select:
-        raise ValueError("Asset pool smaller than number to select")
+    if fixed_tickers is not None:
+        selected_tickers = fixed_tickers
+    else:
+        full_tickers = df.columns.tolist()
+        if len(full_tickers) < n_assets_to_select:
+            raise ValueError("Asset pool smaller than number to select")
+        selected_tickers = np.random.choice(full_tickers, size=n_assets_to_select, replace=False)
 
-    selected_tickers = np.random.choice(full_tickers, size=n_assets_to_select, replace=False)
     df_selected = df[selected_tickers]
-
     mean_returns = df_selected.mean() * 252
     cov_matrix = df_selected.cov() * 252
     num_assets = len(selected_tickers)
@@ -58,6 +61,7 @@ def monte_carlo_portfolio_optimization(
         "volatilities": vol_arr,
         "sharpes": sharpe_arr
     }
+
 
 
 def plot_simulation(returns, volatilities, sharpes, max_idx):

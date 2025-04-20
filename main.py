@@ -33,19 +33,11 @@ def main():
     print("\n✅ Found best asset combination. Re-running high-precision MC and MVO...")
 
     # Stage 2: Re-run MC on the best ticker set with more simulations
-    df_full = pd.read_csv(processed_data_path, index_col=0, parse_dates=True)
-    df_subset = df_full[best_result["tickers"]]
-
-    mean_returns = df_subset.mean() * 252
-    cov_matrix = df_subset.cov() * 252
-    num_assets = len(best_result["tickers"])
-
-    # Re-run MC with more simulations
-    refined_result = monte_carlo_portfolio_optimization_for_fixed_assets(
-        df_subset,
-        best_result["tickers"],
+    refined_result = monte_carlo_portfolio_optimization(
+        csv_path=processed_data_path,
         n_simulations=100_000,
-        risk_free_rate=0.02
+        risk_free_rate=0.02,
+        fixed_tickers=best_result["tickers"]
     )
 
     # Save MC result
