@@ -5,7 +5,7 @@ from numba import njit
 import os
 
 # === 1. Load Processed Log Return Data ===
-project_root = os.path.dirname(os.path.dirname(__file__))  # 回到 PyNoodle 資料夾
+project_root = os.path.dirname(os.path.dirname(__file__))
 data_path = os.path.join(project_root, "data/raw/processed_50.csv")
 returns = pd.read_csv(data_path, index_col=0, parse_dates=True)
 
