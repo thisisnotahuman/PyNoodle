@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 import time
 from numba import njit
+import os
 
 # === 1. Load Processed Log Return Data ===
-data_path = "data/raw/processed_50.csv"
+project_root = os.path.dirname(os.path.dirname(__file__))  # 回到 PyNoodle 資料夾
+data_path = os.path.join(project_root, "data/raw/processed_50.csv")
 returns = pd.read_csv(data_path, index_col=0, parse_dates=True)
 
 # === 2. Use SHY as Risk-Free Proxy ===
@@ -33,15 +35,37 @@ print(f"\n🐼 Pandas Version Time: {end - start:.4f}s")
 
 @njit
 def mean_annualized(arr):
-    return np.mean(arr, axis=0) * 252
+    n = arr.shape[0]
+    return arr.sum(axis=0) / n * 252
+
 
 @njit
 def cov_annualized(arr):
-    n = arr.shape[0]
-    mean = np.mean(arr, axis=0)
-    centered = arr - mean
-    cov = np.dot(centered.T, centered) / (n - 1)
+    n, d = arr.shape
+    mean = np.zeros(d)
+
+    # Step 1: compute mean vector manually
+    for j in range(d):
+        for i in range(n):
+            mean[j] += arr[i, j]
+        mean[j] /= n
+
+    # Step 2: manually center the matrix
+    centered = np.zeros((n, d))
+    for i in range(n):
+        for j in range(d):
+            centered[i, j] = arr[i, j] - mean[j]
+
+    # Step 3: compute covariance matrix manually
+    cov = np.zeros((d, d))
+    for i in range(d):
+        for j in range(d):
+            for k in range(n):
+                cov[i, j] += centered[k, i] * centered[k, j]
+            cov[i, j] /= (n - 1)
+
     return cov * 252
+
 
 X = excess_returns.to_numpy()
 
