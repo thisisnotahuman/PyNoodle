@@ -4,34 +4,31 @@ import time
 from numba import njit
 import os
 
-# === 1. Load Processed Log Return Data ===
+# Load Processed Log Return Data
 project_root = os.path.dirname(os.path.dirname(__file__))
 data_path = os.path.join(project_root, "data/raw/processed_50.csv")
 returns = pd.read_csv(data_path, index_col=0, parse_dates=True)
 
-# === 2. Use SHY as Risk-Free Proxy ===
+# Use SHY as Risk-Free Proxy
 if 'SHY' not in returns.columns:
     raise ValueError("Ticker 'SHY' not found in return data. Cannot compute excess returns.")
 
 risk_free = returns['SHY']  # Series
 
-# === 3. Compute Excess Returns ===
+# Compute Excess Returns
 excess_returns = returns.sub(risk_free, axis=0)
 excess_returns.drop(columns='SHY', inplace=True)  # remove SHY from asset pool
 
-# ---------------------------------------
-# Part A: Baseline Pandas Implementation
-# ---------------------------------------
+# Baseline Pandas Implementation
 
 start = time.time()
 mu_baseline = excess_returns.mean() * 252
 cov_baseline = excess_returns.cov() * 252
 end = time.time()
-print(f"\n🐼 Pandas Version Time: {end - start:.4f}s")
+print(f"\n Pandas Version Time: {end - start:.4f}s")
 
-# ---------------------------------------
-# Part B: Optimized Numba Implementation
-# ---------------------------------------
+
+# Optimized Numba Implementation
 
 @njit
 def mean_annualized(arr):
@@ -44,19 +41,19 @@ def cov_annualized(arr):
     n, d = arr.shape
     mean = np.zeros(d)
 
-    # Step 1: compute mean vector manually
+    # compute mean vector manually
     for j in range(d):
         for i in range(n):
             mean[j] += arr[i, j]
         mean[j] /= n
 
-    # Step 2: manually center the matrix
+    # manually center the matrix
     centered = np.zeros((n, d))
     for i in range(n):
         for j in range(d):
             centered[i, j] = arr[i, j] - mean[j]
 
-    # Step 3: compute covariance matrix manually
+    # compute covariance matrix manually
     cov = np.zeros((d, d))
     for i in range(d):
         for j in range(d):
@@ -73,23 +70,33 @@ start = time.time()
 mu_numba = mean_annualized(X)
 cov_numba = cov_annualized(X)
 end = time.time()
-print(f"⚡ Numba Version Time: {end - start:.4f}s")
+print(f" Numba Version Time: {end - start:.4f}s")
 
-# ---------------------------------------
-# Part C: Save Results & Compare Accuracy
-# ---------------------------------------
+# Measure first Numba run (includes compile time)
+start = time.time()
+mu_numba = mean_annualized(X)
+cov_numba = cov_annualized(X)
+end = time.time()
+print(f"\n Numba First Run (includes compile): {end - start:.4f}s")
 
-# Save only the pandas version as it has labels
-mu_baseline.to_csv("excess_mean.csv")
-cov_baseline.to_csv("excess_cov.csv")
-excess_returns.to_csv("excess_returns.csv")
 
-print("\n Saved:")
+# Save Numba Results & Compare Accuracy
+
+# Convert Numba results back to Pandas with labels
+mu_df = pd.Series(mu_numba, index=excess_returns.columns, name='Excess Mean')
+cov_df = pd.DataFrame(cov_numba, index=excess_returns.columns, columns=excess_returns.columns)
+
+# Save with original filenames (overwrite Pandas results)
+mu_df.to_csv("excess_mean.csv")   # overwriting previous Pandas file
+cov_df.to_csv("excess_cov.csv")   # overwriting previous Pandas file
+excess_returns.to_csv("excess_returns.csv")  # keep this the same
+
+print("\n Saved Numba Results:")
 print("- excess_mean.csv")
 print("- excess_cov.csv")
 print("- excess_returns.csv")
 
-# Accuracy Check
+# Accuracy Check (still optional, but compares Numba vs Pandas results)
 mu_diff = np.abs(mu_numba - mu_baseline.values).max()
 cov_diff = np.abs(cov_numba - cov_baseline.values).max()
 
