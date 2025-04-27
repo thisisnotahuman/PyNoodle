@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 
-def preprocess_data(input_path="data/raw/sp500_bonds_50.csv", output_path="data/raw/processed_50.csv"):
+def preprocess_data(input_path="data/raw/sp500_bonds.csv", output_path="data/raw/processed.csv"):
     # 1. Load raw CSV file
     df = pd.read_csv(input_path)
     df = df.drop_duplicates(subset=["Date", "Ticker"])

@@ -17,10 +17,10 @@ stock_tickers = [
     "AME", "AMGN", "ANET", "AON", "APA", "ARE", "ATO", "AZO", "BALL", "BAX",
     "BBY", "BEN", "BIO", "BKR", "BMY", "BR", "BRO", "C", "CAG", "CAH",
     "CDW", "CE", "CF", "CHRW", "CINF", "CLX", "CNP", "COO", "CPB", "CPT",
-    "CTLT", "CTRA", "CVS", "D", "DAL", "DD", "DG", "DLR", "DOV", "DRI",
+    "CTRA", "CVS", "D", "DAL", "DD", "DG", "DLR", "DOV", "DRI",
     "DVN", "DXC", "ECL", "ED", "EFX", "EG", "EIX", "EMN", "EMR", "ENPH",
     "EOG", "EQR", "EQX", "ES", "ESS", "ETR", "EVRG", "EXC", "EXPD", "EXR",
-    "F", "FAST", "FCX", "FDS", "FE", "FFIV", "FISV", "FLT", "FMC", "FRT",
+    "F", "FAST", "FCX", "FDS", "FE", "FFIV", "FMC", "FRT",
     "FSLR", "FTNT", "GEN", "GL", "GLW", "HIG", "HLT", "HPE", "HPQ", "HRL",
     "HSIC", "HWM", "IEX", "IR", "IT", "JBHT", "JCI", "JKHY", "KEYS", "KHC",
     "KIM", "KLAC", "KMB", "KMI", "KMX", "KR", "L", "LDOS", "LEN", "LKQ",
@@ -28,7 +28,7 @@ stock_tickers = [
     "MNST", "MSCI", "MTB", "MTCH", "NDAQ", "NEE", "NEM", "NFLX", "NI", "NOC",
     "NRG", "NTRS", "NUE", "NVDA", "NVR", "O", "ODFL", "OKE", "OTIS", "PFG",
     "PGR", "PH", "PNW", "PNC", "PNR", "PPG", "PPL", "PRU", "PSA", "PTC",
-    "PWR", "QRVO", "RCL", "RE", "REG", "RF", "RHI", "RMD", "ROK", "ROL",
+    "PWR", "QRVO", "RCL", "REG", "RF", "RHI", "RMD", "ROK", "ROL",
     "ROP", "RSG", "SBAC", "SEDG", "SEE", "SJM", "SLB", "SNA", "SNPS", "STT",
     "STX", "STZ", "SWK", "SWKS", "SYF", "SYK", "TAP", "TDG", "TEL", "TER"
 ]
@@ -37,7 +37,7 @@ bond_tickers = ["TLT", "IEF", "SHY", "BND", "AGG", "TIP", "IEI", "ITOT", "VGSH",
 
 tickers = stock_tickers + bond_tickers
 
-def fetch_all_assets(tickers, start="2014-01-01", end="2024-01-01", save_path="data/raw/sp500_bonds_50.csv"):
+def fetch_all_assets(tickers, start="2014-01-01", end="2024-01-01", save_path="data/raw/sp500_bonds.csv"):
     df = yf.download(tickers, start=start, end=end, group_by='ticker', auto_adjust=True)
     all_data = []
     for ticker in tickers:
