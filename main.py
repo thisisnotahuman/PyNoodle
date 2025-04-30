@@ -65,7 +65,7 @@ def main():
         csv_path=processed_data_path,
         init_weights=refined_result['optimal_weights'],
         tickers=refined_result['tickers'],
-        risk_free_rate=risk_free
+        risk_free_rate=risk_free.mean()
     )
     opt_row = {
         "sharpe": opt["sharpe"],
