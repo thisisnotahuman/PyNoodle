@@ -3,8 +3,19 @@ import pandas as pd
 from scripts.monte_carlo import monte_carlo_portfolio_optimization, monte_carlo_portfolio_optimization_opt
 from scripts.optimize_mvo import optimize_portfolio_from_weights
 
+# Load Processed Log Return Data
+project_root = os.path.dirname(__file__)
+data_path = os.path.join(project_root, "data/raw/processed.csv")
+returns = pd.read_csv(data_path, index_col=0, parse_dates=True)
+
+# Use SHY as Risk-Free Proxy
+if 'SHY' not in returns.columns:
+    raise ValueError("Ticker 'SHY' not found in return data.")
+
+risk_free = returns['SHY']  # This Series will be used as risk-free rate
+
 def main():
-    processed_data_path = "./data/raw/processed_50.csv"
+    processed_data_path = "./data/raw/processed.csv"
     if not os.path.exists(processed_data_path):
         raise FileNotFoundError(f"Data file not found: {processed_data_path}. Please run preprocess.py first.")
 

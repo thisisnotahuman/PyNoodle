@@ -1,3 +1,4 @@
+import os
 import yfinance as yf
 import pandas as pd
 from datetime import datetime
@@ -36,6 +37,8 @@ stock_tickers = [
 bond_tickers = ["TLT", "IEF", "SHY", "BND", "AGG", "TIP", "IEI", "ITOT", "VGSH", "VGIT", "VGLT", "HYG", "IGSB", "LQD", "EDV"]
 
 tickers = stock_tickers + bond_tickers
+
+os.makedirs("data/raw", exist_ok=True)
 
 def fetch_all_assets(tickers, start="2014-01-01", end="2024-01-01", save_path="data/raw/sp500_bonds.csv"):
     df = yf.download(tickers, start=start, end=end, group_by='ticker', auto_adjust=True)
