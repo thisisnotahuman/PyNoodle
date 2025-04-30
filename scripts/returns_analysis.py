@@ -75,9 +75,9 @@ print(f" Numba Version Time: {end - start:.4f}s")
 mu_df = pd.Series(mu_numba, index=excess_returns.columns, name='Excess Mean')
 cov_df = pd.DataFrame(cov_numba, index=excess_returns.columns, columns=excess_returns.columns)
 
-mu_df.to_csv("excess_mean.csv")
-cov_df.to_csv("excess_cov.csv")
-excess_returns.to_csv("excess_returns.csv")
+mu_df.to_csv("./data/excess_mean.csv")
+cov_df.to_csv("./data/excess_cov.csv")
+excess_returns.to_csv("./data/excess_returns.csv")
 
 print("\n Saved Numba Results:")
 print("- excess_mean.csv")
