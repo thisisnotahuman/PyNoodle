@@ -33,7 +33,7 @@ def main():
     n_best_results = 10
 
     for seed in range(NUM_TRIALS):
-        result = monte_carlo_portfolio_optimization_opt(
+        result = monte_carlo_portfolio_optimization(
             df=df,
             n_simulations=5000,
             n_assets_to_select=N_ASSETS,
@@ -50,7 +50,7 @@ def main():
 
     # Stage 2: Re-run MC on the best ticker set with more simulations
     for i in range(n_best_results):
-        refined_result = monte_carlo_portfolio_optimization_opt(
+        refined_result = monte_carlo_portfolio_optimization(
             df=df,
             n_simulations=100_000,
             risk_free_rate=risk_free.mean(),
