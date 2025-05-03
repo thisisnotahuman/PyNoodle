@@ -5,8 +5,8 @@ from scripts.optimize_mvo import optimize_portfolio_from_weights
 
 # Load Processed Log Return Data
 project_root = os.path.dirname(__file__)
-data_path = os.path.join(project_root, "data/raw/processed.csv")
-returns = pd.read_csv(data_path, index_col=0, parse_dates=True)
+processed_data_path = os.path.join(project_root, "data/raw/processed.csv")
+returns = pd.read_csv(processed_data_path, index_col=0, parse_dates=True)
 
 # Use SHY as Risk-Free Proxy
 if 'SHY' not in returns.columns:
@@ -15,7 +15,6 @@ risk_free = returns['SHY']
 print("risk_free",risk_free)
 
 def main():
-    processed_data_path = "./data/raw/processed.csv"
     if not os.path.exists(processed_data_path):
         raise FileNotFoundError(f"Data file not found: {processed_data_path}. Please run preprocess.py first.")
 
@@ -63,7 +62,7 @@ def main():
     mvo_results = []
     for i, result in enumerate(best_results):
         opt = optimize_portfolio_from_weights(
-            df=df,
+            csv_path=processed_data_path,
             init_weights=result['optimal_weights'],
             tickers=result['tickers'],
             risk_free_rate=risk_free.mean()
