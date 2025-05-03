@@ -9,7 +9,7 @@ import numpy as np
 import pandas as pd
 
 def monte_carlo_portfolio_optimization(
-    csv_path,
+    df,
     n_simulations=100_000,
     n_assets_to_select=50,
     risk_free_rate=0.02,
@@ -18,10 +18,6 @@ def monte_carlo_portfolio_optimization(
 ):
     s_t = time.time()
     np.random.seed(random_seed)
-
-    df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
-    if "SHY" in df.columns:
-        df = df.drop(columns=["SHY"])
 
     if fixed_tickers is not None:
         selected_tickers = fixed_tickers
@@ -72,7 +68,7 @@ def monte_carlo_portfolio_optimization(
     }
 
 def monte_carlo_portfolio_optimization_opt(
-    csv_path,
+    df,
     n_simulations=100_000,
     n_assets_to_select=50,
     risk_free_rate=0.02,
@@ -81,10 +77,6 @@ def monte_carlo_portfolio_optimization_opt(
 ):
     s_t = time.time()
     np.random.seed(random_seed)
-
-    df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
-    if "SHY" in df.columns:
-        df = df.drop(columns=["SHY"])
 
     if fixed_tickers is not None:
         selected_tickers = fixed_tickers
@@ -137,7 +129,7 @@ def simulate_single_run(mean_returns, cov_matrix, risk_free_rate, num_assets):
     return weights, ret, vol, sharpe
 
 def monte_carlo_portfolio_optimization_vectorized(
-    csv_path,
+    df,
     n_simulations=100_000,
     n_assets_to_select=50,
     risk_free_rate=0.02,
@@ -146,10 +138,6 @@ def monte_carlo_portfolio_optimization_vectorized(
 ):
     s_t = time.time()
     np.random.seed(random_seed)
-
-    df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
-    if "SHY" in df.columns:
-        df = df.drop(columns=["SHY"])
 
     if fixed_tickers is not None:
         selected_tickers = fixed_tickers
