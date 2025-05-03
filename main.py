@@ -36,8 +36,7 @@ def main():
             random_seed=seed
         )
         print(f"Seed {seed} | Sharpe = {result['max_sharpe']:.4f}")
-
-        # 插入并维护 top-5 Sharpe ratio 的 result
+        
         best_results.append(result)
         best_results = sorted(best_results, key=lambda x: x["max_sharpe"], reverse=True)[:5]
 
