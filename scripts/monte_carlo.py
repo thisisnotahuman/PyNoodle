@@ -20,6 +20,8 @@ def monte_carlo_portfolio_optimization(
     np.random.seed(random_seed)
 
     df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
+    if "SHY" in df.columns:
+        df = df.drop(columns=["SHY"])
 
     if fixed_tickers is not None:
         selected_tickers = fixed_tickers
@@ -81,6 +83,8 @@ def monte_carlo_portfolio_optimization_opt(
     np.random.seed(random_seed)
 
     df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
+    if "SHY" in df.columns:
+        df = df.drop(columns=["SHY"])
 
     if fixed_tickers is not None:
         selected_tickers = fixed_tickers
@@ -144,6 +148,8 @@ def monte_carlo_portfolio_optimization_vectorized(
     np.random.seed(random_seed)
 
     df = pd.read_csv(csv_path, index_col=0, parse_dates=True)
+    if "SHY" in df.columns:
+        df = df.drop(columns=["SHY"])
 
     if fixed_tickers is not None:
         selected_tickers = fixed_tickers
