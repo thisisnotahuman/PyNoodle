@@ -24,8 +24,7 @@ def main():
 
     print(f"Running {NUM_TRIALS} portfolio samplings to find best asset subset...")
 
-    best_result = None
-    best_sharpe = -float("inf")
+    best_results = []
 
     # Outer loop: Try different random selections of N assets
     for seed in range(NUM_TRIALS):
@@ -37,9 +36,10 @@ def main():
             random_seed=seed
         )
         print(f"Seed {seed} | Sharpe = {result['max_sharpe']:.4f}")
-        if result["max_sharpe"] > best_sharpe:
-            best_sharpe = result["max_sharpe"]
-            best_result = result
+
+        # 插入并维护 top-5 Sharpe ratio 的 result
+        best_results.append(result)
+        best_results = sorted(best_results, key=lambda x: x["max_sharpe"], reverse=True)[:5]
 
     print("\n✅ Found best asset combination. Re-running high-precision MC and MVO...")
 
@@ -48,7 +48,7 @@ def main():
         csv_path=processed_data_path,
         n_simulations=100_000,
         risk_free_rate=0.02,
-        fixed_tickers=best_result["tickers"]
+        fixed_tickers=best_results[0]["tickers"]
     )
 
     # Save MC result
