@@ -30,7 +30,7 @@ def main():
             csv_path=processed_data_path,
             n_simulations=5000,
             n_assets_to_select=N_ASSETS,
-            risk_free_rate=0.02,
+            risk_free_rate=risk_free,
             random_seed=seed
         )
         print(f"Seed {seed} | Sharpe = {result['max_sharpe']:.4f}")
