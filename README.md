@@ -6,6 +6,8 @@ This project implements a two-phase portfolio optimization strategy that combine
 
 [Final Presentation PPT](https://docs.google.com/presentation/d/1MmyTgADte4OAgjfuZ0_GFawipkVd2WBXlHgYy-0_bmU/edit?usp=sharing)
 
+[Github Link](https://github.com/thisisnotahuman/PyNoodle/tree/main)
+
 ### 🔧 Directory Layout
 
 ```python
