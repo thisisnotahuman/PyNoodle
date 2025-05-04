@@ -26,7 +26,7 @@ PyNoodle/
 │ ├── monte_carlo.py # Monte Carlo logic (baseline, parallel, vectorized)
 │ ├── optimize_mvo.py # Constrained optimizer (MVO)
 │ ├── preprocess.py # Preprocessing script for return data
-│ └── returns_analysis.py # Sharpe ratio & volatility visualization utilities
+│ └── returns_analysis.py # Annualized Return & Risk Metrics (Pandas vs Numba)
 │
 ├── main.py # Main script to run MC + MVO workflow
 ├── MC_sim_0.png # Sample MC simulation plot
