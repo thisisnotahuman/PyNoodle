@@ -13,24 +13,29 @@ This project implements a two-phase portfolio optimization strategy that combine
 ```python
 PyNoodle/
 ├── data/
-│ ├── raw/
-│ │ ├── best_mc_result.csv # Best portfolio found via Monte Carlo
-│ │ ├── best_optimized_result.csv # Optimized version via MVO
-│ │ ├── excess_cov.csv # Precomputed covariance matrix
-│ │ ├── excess_mean.csv # Precomputed mean returns
-│ │ └── excess_returns.csv # Raw excess log return data
+│   ├── raw/
+│   │   └── preprocessed.csv          # Cleaned dataset
+│   ├── best_mc_result.csv            # Best portfolio from Monte Carlo
+│   ├── best_optimized_result.csv     # Optimized portfolio from MVO
+│   ├── excess_returns.csv            # Raw excess log return data
+│   ├── excess_mean.csv               # Precomputed mean returns
+│   └── excess_cov.csv                # Precomputed covariance matrix
 │
 ├── scripts/
-│ ├── init.py
-│ ├── fetch_data.py # Script for fetching/loading stock data
-│ ├── monte_carlo.py # Monte Carlo logic (baseline, parallel, vectorized)
-│ ├── optimize_mvo.py # Constrained optimizer (MVO)
-│ ├── preprocess.py # Preprocessing script for return data
-│ └── returns_analysis.py # Annualized Return & Risk Metrics (Pandas vs Numba)
+│   ├── __init__.py
+│   ├── fetch_data.py                 # Fetch historical prices
+│   ├── preprocess.py                 # Clean & compute log returns
+│   ├── monte_carlo.py                # Monte Carlo simulation
+│   ├── optimize_mvo.py               # Mean-Variance Optimization (SLSQP)
+│   ├── returns_analysis.py           # Compute & export annualized excess return stats
+│   └── text_appendix/                # Benchmark experiments & comparisons
+│       ├── test_base.ipynb           # time test for baseline code
+│       ├── test_opt.ipynb            # time test for optimized code
+│       └── pandas_vs_numba.ipynb     # time test for returns analysis
 │
-├── main.py # Main script to run MC + MVO workflow
-├── MC_sim_0.png # Sample MC simulation plot
-├── MC_sim_standardized.png # Cleaned plot for reporting
+├── main.py                           # Pipeline entry point: MC + MVO
+├── MC_sim_0.png                      # Example: single Monte Carlo run
+├── MC_sim_standardized.png           # Cleaned plot for report
 ├── LICENSE
 ├── README.md
 └── .gitignore
